@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Noval - Digital Portfolio
 
-## Getting Started
+> **Game Designer & Multimedia Artist**  
+> *"Crafting Digital Worlds, Blending Art with Technology."*
 
-First, run the development server:
+Welcome to the source code of my personal portfolio website. This project showcases my journey in game design, interactive media, and digital art, built with a modern web stack focusing on performance and aesthetics.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🌐 **Live Demo:** [https://noval-g.github.io/Noval-Landing-page/](https://noval-g.github.io/Noval-Landing-page/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎨 About The Project
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This portfolio is designed with a **"Cozy Minimalist & Apple-esque"** philosophy. It moves away from the traditional, cold corporate look, aiming instead for a warm, fluid, and premium user experience.
 
-## Learn More
+### Key Features
+*   **Bento Grid Gallery**: An interactive, expandable gallery for showcasing projects without page reloads.
+*   **Apple-style Motion**: Smooth, spring-physics based animations powered by Framer Motion.
+*   **Interactive Hero**: A subtle, mouse-following glow effect that adds a touch of digital magic.
+*   **Responsive Design**: Perfectly optimized for both desktop and mobile devices.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+*   **Framework**: [Next.js 15 (App Router)](https://nextjs.org/)
+*   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+*   **Animation**: [Framer Motion](https://www.framer.com/motion/)
+*   **Icons**: [Lucide React](https://lucide.dev/)
+*   **Deployment**: GitHub Pages (Static Export)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Getting Started
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If you want to run this project locally on your machine:
+
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/Noval-G/Noval-Landing-page.git
+    cd Noval-Landing-page/portfolio
+    ```
+
+2.  **Install dependencies**
+    ```bash
+    npm install
+    ```
+
+3.  **Run the development server**
+    ```bash
+    npm run dev
+    ```
+
+4.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+---
+
+## 📬 Contact
+
+I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+
+*   **Email**: [sofreeai@gmail.com](mailto:sofreeai@gmail.com)
+*   **Phone**: +853 63939694 / +852 44136069
+
+---
+
+© 2026 Ieong Hoi Long Noval. All Rights Reserved.
