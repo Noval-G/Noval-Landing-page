@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'export',
+  basePath: '/Noval-Landing-page',
+  assetPrefix: '/Noval-Landing-page/',
+  images: {
+    unoptimized: true,
+  },
   reactCompiler: true,
 };
 
