@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Play, Maximize2 } from 'lucide-react';
 import Image from 'next/image';
+import { useLanguage } from '@/context/LanguageContext';
 
 // Type definition for a Portfolio Item
 type Item = {
@@ -62,13 +63,14 @@ const items: Item[] = [
 
 export default function Collection() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   return (
     <section id="collection" className="py-24 px-6 md:px-12 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="mb-16">
-          <h2 className="text-3xl font-bold tracking-tight mb-4">Selected Collection</h2>
-          <p className="text-muted max-w-2xl">A curated selection of my work in game design, multimedia art, and video production.</p>
+          <h2 className="text-3xl font-bold tracking-tight mb-4">{t('collection.title')}</h2>
+          <p className="text-muted max-w-2xl">{t('collection.desc')}</p>
         </div>
 
         {/* Grid Layout */}
@@ -173,7 +175,7 @@ export default function Collection() {
                                  <Play size={32} className="text-white ml-1" />
                                </div>
                              </div>
-                             <p className="absolute bottom-8 left-0 right-0 text-center text-white/60 font-medium z-10">Click to play preview</p>
+                             <p className="absolute bottom-8 left-0 right-0 text-center text-white/60 font-medium z-10">{t('collection.clickPlay')}</p>
                           </div>
                           
                           {/* Rich Text Info Area */}
@@ -184,14 +186,14 @@ export default function Collection() {
                               
                               <div className="space-y-8">
                                 <div>
-                                  <h4 className="text-xs font-bold uppercase text-muted tracking-widest mb-2">Overview</h4>
+                                  <h4 className="text-xs font-bold uppercase text-muted tracking-widest mb-2">{t('collection.overview')}</h4>
                                   <p className="text-muted leading-relaxed">
                                     {item.description}
                                   </p>
                                 </div>
 
                                 <div>
-                                  <h4 className="text-xs font-bold uppercase text-muted tracking-widest mb-2">The Process</h4>
+                                  <h4 className="text-xs font-bold uppercase text-muted tracking-widest mb-2">{t('collection.process')}</h4>
                                   <p className="text-sm text-muted leading-relaxed">
                                       {item.content || "This project involved extensive research into user psychology and interactive game mechanics, resulting in an award-winning experience."}
                                   </p>
@@ -199,7 +201,7 @@ export default function Collection() {
                                 
                                 <div className="pt-8 border-t border-border">
                                    <button className="w-full py-4 bg-foreground text-background rounded-2xl font-bold hover:opacity-90 transition-opacity active:scale-[0.98]">
-                                     View Live Project
+                                     {t('collection.viewLive')}
                                    </button>
                                 </div>
                               </div>

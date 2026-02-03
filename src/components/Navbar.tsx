@@ -51,46 +51,13 @@ export default function Navbar() {
         isScrolled ? 'bg-background/70 backdrop-blur-xl border-b border-border/40 py-3' : 'bg-transparent'
       }`}
     >
-      {/* Logo Area */}
-      <div className="flex items-center gap-6">
-        <Link href="/" className="text-xl font-bold tracking-tight text-foreground">
-          Noval
-        </Link>
-        
-        {/* Mode Switcher */}
-        <div 
-          onClick={toggleMode}
-          className="hidden sm:flex relative h-9 w-[180px] bg-muted/10 rounded-full p-1 cursor-pointer border border-border/40 hover:bg-muted/15 transition-colors"
-        >
-          <motion.div
-            className="absolute h-7 w-[86px] bg-white rounded-full shadow-sm"
-            animate={{ x: mode === 'studio' ? 0 : 88 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          />
-          <div className="relative z-10 flex w-full text-[10px] font-bold uppercase tracking-wider">
-            <div className={`flex-1 flex items-center justify-center gap-1.5 transition-colors duration-300 ${mode === 'studio' ? 'text-accent' : 'text-muted'}`}>
-              <Briefcase size={12} />
-              {t('mode.studio')}
-            </div>
-            <div className={`flex-1 flex items-center justify-center gap-1.5 transition-colors duration-300 ${mode === 'sanctuary' ? 'text-accent' : 'text-muted'}`}>
-              <Sparkles size={12} />
-              {t('mode.sanctuary')}
-            </div>
-          </div>
-        </div>
+      {/* Logo Area (Left) */}
+      <Link href="/" className="text-xl font-bold tracking-tight text-foreground">
+        Noval
+      </Link>
 
-        {/* Language Toggle */}
-        <button 
-          onClick={toggleLanguage}
-          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-muted/5 hover:bg-muted/10 border border-border/40 rounded-full text-[10px] font-bold uppercase tracking-widest text-muted hover:text-foreground transition-all"
-        >
-          <Languages size={12} className="text-accent" />
-          {language === 'en' ? '繁中' : 'EN'}
-        </button>
-      </div>
-
-      {/* Desktop Menu */}
-      <div className="hidden md:flex gap-10">
+      {/* Desktop Menu (Center) */}
+      <div className="hidden md:flex gap-10 absolute left-1/2 -translate-x-1/2">
         {navItems.map((item) => (
           <Link 
             key={item.name} 
@@ -103,27 +70,37 @@ export default function Navbar() {
         ))}
       </div>
 
-      {/* Contact Area */}
-      <div className="flex items-center gap-4">
-        {/* Mobile Switcher & Lang */}
-        <div className="flex sm:hidden items-center gap-2">
-          <button 
-            onClick={toggleLanguage}
-            className="p-2 bg-muted/10 rounded-full text-muted"
-          >
-            <span className="text-[10px] font-bold">{language === 'en' ? '繁' : 'EN'}</span>
-          </button>
-          <button 
-            onClick={toggleMode}
-            className="p-2 bg-muted/10 rounded-full text-accent"
-          >
-            {mode === 'studio' ? <Briefcase size={20} /> : <Sparkles size={20} />}
-          </button>
-        </div>
+      {/* Controls Area (Right) */}
+      <div className="flex items-center gap-3">
         
+        {/* Compact Mode Switcher (Icons Only) */}
+        <div 
+          onClick={toggleMode}
+          className="relative h-8 w-14 bg-muted/10 rounded-full p-1 cursor-pointer border border-border/40 hover:bg-muted/15 transition-colors flex items-center"
+        >
+          <motion.div
+            className="absolute h-6 w-6 bg-white rounded-full shadow-sm"
+            animate={{ x: mode === 'studio' ? 0 : 24 }}
+            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+          />
+          <div className="relative z-10 flex w-full justify-between px-1.5 text-muted pointer-events-none">
+             <Briefcase size={12} className={mode === 'studio' ? 'text-accent' : 'opacity-50'} />
+             <Sparkles size={12} className={mode === 'sanctuary' ? 'text-accent' : 'opacity-50'} />
+          </div>
+        </div>
+
+        {/* Language Toggle */}
+        <button 
+          onClick={toggleLanguage}
+          className="flex items-center justify-center w-8 h-8 bg-muted/5 hover:bg-muted/10 border border-border/40 rounded-full text-[10px] font-bold uppercase text-muted hover:text-foreground transition-all"
+        >
+          {language === 'en' ? '繁' : 'EN'}
+        </button>
+        
+        {/* Let's Talk Button */}
         <Link 
           href="#contact" 
-          className="px-5 py-2 bg-foreground text-background text-xs font-bold rounded-full hover:scale-105 active:scale-95 transition-all shadow-sm"
+          className="hidden sm:inline-flex px-5 py-2 bg-foreground text-background text-xs font-bold rounded-full hover:scale-105 active:scale-95 transition-all shadow-sm"
         >
           {t('nav.talk')}
         </Link>
