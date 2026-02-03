@@ -70,18 +70,6 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-start px-6 md:px-12 pt-20 overflow-hidden bg-transparent">
       
-      {/* Interactive Glow Follower - Made Stronger */}
-      {isMounted && (
-        <motion.div 
-          className="fixed top-0 left-0 w-[500px] h-[500px] bg-accent/40 rounded-full blur-[100px] z-0 pointer-events-none mix-blend-multiply dark:mix-blend-screen"
-          style={{
-            x: springX,
-            y: springY,
-            background: 'radial-gradient(circle, rgba(41,151,255,0.4) 0%, rgba(41,151,255,0) 70%)'
-          }}
-        />
-      )}
-      
       {/* Static Background Decor - Extra ambience */}
       <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-purple-300/20 rounded-full blur-[120px] -z-20" />
       
