@@ -1,13 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  /* Cozy Apple-like Palette */
-  --background: #F5F5F7; /* Off-white background */
-  --surface: #FFFFFF;    /* Pure white for cards */
-  --foreground: #1D1D1F; /* Deep charcoal for primary text */
-  --muted: #86868B;      /* Soft gray for secondary text */
-  --accent: #2997FF;     /* Soft Blue for interactions */
-  --border: #E5E5EA;     /* Light border */
+  /* Studio Mode (Default) - Professional & Crisp */
+  --background: #F5F5F7; 
+  --surface: #FFFFFF;    
+  --foreground: #1D1D1F; 
+  --muted: #86868B;      
+  --accent: #2997FF;     /* Studio Blue */
+  --border: #E5E5EA;     
+}
+
+[data-theme='sanctuary'] {
+  /* Sanctuary Mode - Warm & Organic */
+  --background: #FDFCF0; /* Creamy warm background */
+  --surface: #FCF9E8;    
+  --foreground: #3A352F; /* Deep organic brown */
+  --muted: #9A8F80;      
+  --accent: #BC6C25;     /* Warm Earthy Orange/Amber */
+  --border: #E9E4D1;
 }
 
 @theme inline {
