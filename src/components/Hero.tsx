@@ -97,7 +97,7 @@ export default function Hero() {
         
         <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-foreground mb-8 leading-[0.95]">
           Crafting <br />
-          <TypewriterText text="Digital Worlds." delay={1.0} className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-600" />
+          <TypewriterText text="Digital Worlds." delay={1.0} className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600" />
         </h1>
         
         <p className="text-xl md:text-2xl text-muted max-w-xl mb-12 leading-relaxed font-light">
