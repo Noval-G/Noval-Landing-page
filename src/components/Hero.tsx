@@ -75,11 +75,15 @@ export default function Hero() {
           {t('hero.badge')}
         </span>
         
-        <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-foreground mb-8 leading-[0.9]">
-          <TypewriterText text={t('hero.title')} delay={0.3} className="block" />
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground mb-10 leading-[1.15]">
+          {t('hero.title').split('  ').map((line, i) => (
+            <span key={i} className={`block ${i > 0 ? 'md:ml-24 opacity-90' : ''}`}>
+              <TypewriterText text={line} delay={0.3 + i * 0.5} />
+            </span>
+          ))}
         </h1>
         
-        <p className="text-xl md:text-2xl text-muted max-w-2xl mb-12 leading-relaxed font-light">
+        <p className="text-xl md:text-2xl text-muted max-w-2xl mb-12 leading-[1.6] font-light">
           {t('hero.subtitle')}
         </p>
 

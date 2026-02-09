@@ -23,7 +23,7 @@ const translations: Record<Language, Record<string, string>> = {
     'mode.sanctuary': 'Sanctuary',
     // Hero
     'hero.badge': 'Creative Technical Coordinator',
-    'hero.title': 'Harmonizing Logic and Lens.',
+    'hero.title': 'Harmonizing Logic  and Lens.',
     'hero.subtitle': 'Hi, I\'m Noval. I bridge the worlds of Game Design, IT, and Media Production. As a coordinator, I simplify complexity and optimize workflows—transforming technical challenges into seamless, high-impact creative output.',
     'hero.explore': 'Explore Work',
     'hero.contact': 'Contact Me',
@@ -116,7 +116,7 @@ const translations: Record<Language, Record<string, string>> = {
     'mode.sanctuary': '心靈棲所',
     // Hero
     'hero.badge': '創意技術協調師',
-    'hero.title': '策動邏輯與光影　優化創意產能',
+    'hero.title': '策動邏輯與光影  優化創意產能',
     'hero.subtitle': '我是 Noval，跨越遊戲、IT 與影像的轉化樞紐。以嚴謹邏輯拆解複雜，以藝術直覺重塑表達——致力於降本增效，讓創意在技術的軌道上無縫奔馳。',
     'hero.explore': '閱覽作品',
     'hero.contact': '聯絡我',
