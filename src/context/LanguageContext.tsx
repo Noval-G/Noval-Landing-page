@@ -116,9 +116,9 @@ const translations: Record<Language, Record<string, string>> = {
     'mode.sanctuary': '心靈棲所',
     // Hero
     'hero.badge': '創意技術協調師',
-    'hero.title': '策動邏輯與光影，優化創意產能。',
-    'hero.subtitle': '我是 Noval。不僅是創作者，更是跨領域的轉化樞紐。我以遊戲開發的嚴謹邏輯拆解問題，以媒體製作的藝術直覺重塑表達。我致力於透過技術整合為專案降本增效，讓團隊合作無縫流轉。',
-    'hero.explore': '探索作品',
+    'hero.title': '策動邏輯與光影　優化創意產能',
+    'hero.subtitle': '我是 Noval，跨越遊戲、IT 與影像的轉化樞紐。以嚴謹邏輯拆解複雜，以藝術直覺重塑表達——致力於降本增效，讓創意在技術的軌道上無縫奔馳。',
+    'hero.explore': '閱覽作品',
     'hero.contact': '聯絡我',
     // About
     'about.badge': '關於我',
