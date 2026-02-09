@@ -75,15 +75,15 @@ export default function Hero() {
           {t('hero.badge')}
         </span>
         
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground mb-10 leading-[1.15]">
+        <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-10 leading-[1.25] ${useLanguage().language === 'zh' ? 'tracking-normal font-semibold' : 'tracking-tight font-black'}`}>
           {t('hero.title').split('  ').map((line, i) => (
-            <span key={i} className={`block ${i > 0 ? 'md:ml-24 opacity-90' : ''}`}>
+            <span key={i} className={`block ${i > 0 ? 'md:ml-[15%] opacity-90' : ''}`}>
               <TypewriterText text={line} delay={0.3 + i * 0.5} />
             </span>
           ))}
         </h1>
         
-        <p className="text-xl md:text-2xl text-muted max-w-2xl mb-12 leading-[1.6] font-light">
+        <p className="text-xl md:text-2xl text-muted max-w-2xl mb-12 leading-[1.7] font-light">
           {t('hero.subtitle')}
         </p>
 
