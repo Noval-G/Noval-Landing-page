@@ -22,9 +22,9 @@ const translations: Record<Language, Record<string, string>> = {
     'mode.studio': 'Studio',
     'mode.sanctuary': 'Sanctuary',
     // Hero
-    'hero.badge': 'Game Designer & Multimedia Artist',
-    'hero.title': 'Crafting Digital Worlds.',
-    'hero.subtitle': "Hi, I'm Noval. I blend code, art, and storytelling to create immersive interactive experiences.",
+    'hero.badge': 'Creative Technical Coordinator',
+    'hero.title': 'Harmonizing Logic and Lens.',
+    'hero.subtitle': 'Hi, I\'m Noval. I bridge the worlds of Game Design, IT, and Media Production. As a coordinator, I simplify complexity and optimize workflows—transforming technical challenges into seamless, high-impact creative output.',
     'hero.explore': 'Explore Work',
     'hero.contact': 'Contact Me',
     // About
@@ -115,9 +115,9 @@ const translations: Record<Language, Record<string, string>> = {
     'mode.studio': '工作模式',
     'mode.sanctuary': '心靈棲所',
     // Hero
-    'hero.badge': '遊戲設計師 ＆ 多媒體藝術家',
-    'hero.title': '虛實交織，演繹數位幻境。',
-    'hero.subtitle': '你好，我是 Noval。我將程式、藝術與敘事融合，打造沉浸式的互動體驗。',
+    'hero.badge': '創意技術協調師',
+    'hero.title': '策動邏輯與光影，優化創意產能。',
+    'hero.subtitle': '我是 Noval。不僅是創作者，更是跨領域的轉化樞紐。我以遊戲開發的嚴謹邏輯拆解問題，以媒體製作的藝術直覺重塑表達。我致力於透過技術整合為專案降本增效，讓團隊合作無縫流轉。',
     'hero.explore': '探索作品',
     'hero.contact': '聯絡我',
     // About
