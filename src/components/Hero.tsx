@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -36,33 +36,47 @@ const TypewriterText = ({ text, delay = 0, className = "" }: { text: string, del
 };
 
 export default function Hero() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [mounted, setMounted] = useState(false);
+  
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Parallax grid effect
+  const springConfig = { damping: 30, stiffness: 50 };
+  const gridX = useSpring(useTransform(mouseX, [0, 2000], [0, 40]), springConfig);
+  const gridY = useSpring(useTransform(mouseY, [0, 2000], [0, 40]), springConfig);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    const handleMouseMove = (e: globalThis.MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-20 overflow-hidden bg-background transition-colors duration-700">
       
+      {/* Option A: Interactive Tech Grid Background */}
+      <motion.div 
+        className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]"
+        style={{ 
+          x: gridX,
+          y: gridY,
+          backgroundImage: `
+            linear-gradient(to right, var(--foreground) 1px, transparent 1px),
+            linear-gradient(to bottom, var(--foreground) 1px, transparent 1px)
+          `,
+          backgroundSize: '80px 80px'
+        }}
+      />
+      
       {/* Cinematic Grain Overlay */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" 
+      <div className="absolute inset-0 z-1 pointer-events-none opacity-[0.02]" 
            style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' }} 
-      />
-
-      {/* Dynamic Aurora Background (Visual Impact) */}
-      <div className="absolute top-[-20%] right-[-10%] w-[80vw] h-[80vw] md:w-[50vw] md:h-[50vw] rounded-full blur-[100px] opacity-60 animate-pulse-slow mix-blend-multiply dark:mix-blend-screen transition-all duration-1000"
-           style={{ 
-             background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
-             transform: 'translate3d(0, 0, 0)'
-           }} 
-      />
-      <div className="absolute bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] md:w-[40vw] md:h-[40vw] rounded-full blur-[80px] opacity-40 animate-pulse-slower mix-blend-multiply dark:mix-blend-screen transition-all duration-1000 delay-700"
-           style={{ 
-             background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
-             filter: 'hue-rotate(45deg)'
-           }} 
       />
 
       <motion.div
@@ -75,15 +89,15 @@ export default function Hero() {
           {t('hero.badge')}
         </span>
         
-        <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-10 leading-[1.25] ${useLanguage().language === 'zh' ? 'tracking-normal font-semibold' : 'tracking-tight font-black'}`}>
+        <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-10 leading-[1.3] ${language === 'zh' ? 'tracking-normal' : 'tracking-tight font-black'}`}>
           {t('hero.title').split('  ').map((line, i) => (
-            <span key={i} className={`block ${i > 0 ? 'md:ml-[15%] opacity-90' : ''}`}>
-              <TypewriterText text={line} delay={0.3 + i * 0.5} />
+            <span key={i} className="block">
+              <TypewriterText text={line.trim()} delay={0.3 + i * 0.5} />
             </span>
           ))}
         </h1>
         
-        <p className="text-xl md:text-2xl text-muted max-w-2xl mb-12 leading-[1.7] font-light">
+        <p className="text-xl md:text-2xl text-muted max-w-2xl mb-12 leading-[1.8] font-light">
           {t('hero.subtitle')}
         </p>
 
