@@ -15,6 +15,15 @@ export default function Timeline() {
     }
   ];
 
+  const work = [
+    {
+      year: '2025/1/2 - 2026/3/2',
+      title: t('timeline.work.mlsa'),
+      subtitle: t('timeline.work.assistant'),
+      description: t('timeline.work.mlsa.desc')
+    }
+  ];
+
   const awards = [
     { 
       year: '2023 - 2024', 
@@ -69,8 +78,8 @@ export default function Timeline() {
 
         <div className="relative border-l border-border ml-3 md:ml-6 space-y-12">
           {/* Education */}
-          <div className="mb-12">
-            <span className="absolute -left-3 bg-accent text-white px-2 py-1 text-xs font-bold rounded-md">{t('timeline.edu.tag')}</span>
+          <div className="mb-12 relative">
+            <span className="absolute -left-3 top-0 -translate-x-full bg-accent text-white px-3 py-1 text-xs font-bold rounded-md whitespace-nowrap">{t('timeline.edu.tag')}</span>
             {education.map((edu, index) => (
                <div key={index} className="ml-8 md:ml-12 relative">
                   <span className="absolute -left-[45px] md:-left-[61px] top-1 w-4 h-4 rounded-full bg-white border-4 border-accent" />
@@ -82,9 +91,23 @@ export default function Timeline() {
             ))}
           </div>
 
+          {/* Work Experience */}
+          <div className="mb-12 relative">
+            <span className="absolute -left-3 top-0 -translate-x-full bg-blue-600 text-white px-3 py-1 text-xs font-bold rounded-md whitespace-nowrap">{t('timeline.work.tag')}</span>
+            {work.map((job, index) => (
+               <div key={index} className="ml-8 md:ml-12 relative">
+                  <span className="absolute -left-[45px] md:-left-[61px] top-1 w-4 h-4 rounded-full bg-white border-4 border-blue-600" />
+                  <span className="text-sm font-semibold text-blue-600 mb-1 block">{job.year}</span>
+                  <h3 className="text-xl font-bold text-foreground">{job.title}</h3>
+                  <p className="text-muted font-medium mb-2">{job.subtitle}</p>
+                  <p className="text-muted/80 leading-relaxed max-w-lg">{job.description}</p>
+               </div>
+            ))}
+          </div>
+
           {/* Awards */}
-          <div>
-             <span className="absolute -left-3 bg-foreground text-white px-2 py-1 text-xs font-bold rounded-md">{t('timeline.award.tag')}</span>
+          <div className="relative">
+             <span className="absolute -left-3 top-0 -translate-x-full bg-foreground text-white px-3 py-1 text-xs font-bold rounded-md whitespace-nowrap">{t('timeline.award.tag')}</span>
              {awards.map((award, index) => (
                 <div key={index} className="ml-8 md:ml-12 mb-8 relative last:mb-0">
                    <span className="absolute -left-[45px] md:-left-[61px] top-1 w-4 h-4 rounded-full bg-white border-4 border-foreground" />
