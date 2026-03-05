@@ -15,55 +15,57 @@ type Item = {
   size: 'small' | 'medium' | 'large'; // small: 1x1, medium: 2x1, large: 2x2
   imageUrl: string; // Placeholder image URL
   content?: string; // Placeholder for detailed content
+  link?: string;
+  videoEmbedUrl?: string;
 };
 
 const items: Item[] = [
   {
     id: '1',
-    title: 'Senior Project',
-    category: 'Game Design',
-    description: 'Special Award Winner (2023-2024)',
+    title: 'Game Design Journey',
+    category: 'Game',
+    description: 'From 2D Unity Action to 3D UE5 Solo Development',
     size: 'large',
-    imageUrl: 'https://placehold.co/800x800/2563eb/white?text=Senior+Project',
-    content: 'Full details about the Senior Project game design...',
+    imageUrl: '/GameCover.jpg',
+    content: 'My journey began with a 3-month team project using Unity to create a 2D side-scrolling action game featuring a unique "Charge QTE Magic" system. This evolved into my final senior project, "XenoVersus"—a solo-developed Unreal Engine 5 experience. Despite the challenges of 4 months spent bridging C++ and Blueprints, and the shift from battle-mode to adventure, this project represents my most precious growth and technical breakthrough.',
+    videoEmbedUrl: 'https://www.youtube.com/embed/cGez3Bq_BcI?si=_0YXgkP-RPerzAQy&autoplay=1',
   },
   {
     id: '2',
     title: 'WirForce Fight',
     category: 'Competition',
-    description: 'Champion Title (2022)',
+    description: 'Gundam Evolution (FPS) Champion Captain',
     size: 'medium',
     imageUrl: 'https://placehold.co/800x400/eab308/white?text=WirForce',
   },
   {
     id: '3',
-    title: 'Hyped Design',
-    category: 'Award',
-    description: 'First Place Winner',
+    title: 'Design Portfolio',
+    category: 'Design',
+    description: 'Selected Graphic and Conceptual Design Work',
     size: 'small',
     imageUrl: 'https://placehold.co/400x400/16a34a/white?text=Design',
   },
   {
-    id: '4',
-    title: 'Unreal Engine',
-    category: 'Tech Demo',
-    description: 'Real-time rendering showcase',
-    size: 'small',
-    imageUrl: 'https://placehold.co/400x400/9333ea/white?text=UE5',
-  },
-  {
     id: '5',
-    title: 'Video Directing',
+    title: 'Video Portfolio',
     category: 'Video',
-    description: 'Cinematic storytelling portfolio',
+    description: 'Cinematic storytelling and digital content production',
     size: 'medium',
-    imageUrl: 'https://placehold.co/800x400/dc2626/white?text=Directing',
+    imageUrl: 'https://placehold.co/800x400/dc2626/white?text=Video',
+    link: 'https://drive.google.com/drive/folders/1YQmfHgKgnowriEh3iKXD4TwJYp3CdIiD?usp=sharing',
   },
 ];
 
 export default function Collection() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
   const { t } = useLanguage();
+
+  const handleClose = () => {
+    setSelectedId(null);
+    setIsPlaying(false);
+  };
 
   return (
     <section id="collection" className="py-24 px-6 md:px-12 bg-white">
@@ -87,7 +89,7 @@ export default function Collection() {
               }
             }
           }}
-          className="grid grid-cols-1 md:grid-cols-4 auto-rows-[300px] gap-6"
+          className="grid grid-cols-1 md:grid-cols-4 auto-rows-[350px] gap-6"
         >
           {items.map((item) => (
             <motion.div
@@ -98,8 +100,8 @@ export default function Collection() {
                 show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
               }}
               onClick={() => setSelectedId(item.id)}
-              className={`relative cursor-pointer group rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 ${
-                item.size === 'large' ? 'md:col-span-2 md:row-span-2' :
+              className={`relative cursor-pointer group rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 ${
+                item.id === '1' ? 'md:col-span-4 md:row-span-1' :
                 item.size === 'medium' ? 'md:col-span-2 md:row-span-1' :
                 'md:col-span-1 md:row-span-1'
               }`}
@@ -110,11 +112,19 @@ export default function Collection() {
                   src={item.imageUrl} 
                   alt={item.title}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  unoptimized // For placeholder images
+                  className={`object-cover transition-all duration-700 group-hover:scale-105 ${item.id === '1' ? 'blur-[2px] brightness-75' : ''}`}
                 />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
               </div>
+
+              {/* Special Overlay for Game Design */}
+              {item.id === '1' && (
+                <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                  <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter opacity-90 group-hover:scale-110 transition-transform duration-700 drop-shadow-2xl">
+                    GAME DESIGN
+                  </h2>
+                </div>
+              )}
 
               {/* Content Overlay */}
               <div className="absolute inset-0 p-8 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/20 to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
@@ -137,7 +147,7 @@ export default function Collection() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                onClick={() => setSelectedId(null)}
+                onClick={handleClose}
                 className="fixed inset-0 bg-black/60 backdrop-blur-md z-50"
               />
 
@@ -145,11 +155,11 @@ export default function Collection() {
               <div className="fixed inset-0 grid place-items-center z-[60] pointer-events-none p-4 md:p-12">
                 <motion.div
                   layoutId={`card-${selectedId}`}
-                  className="w-full max-w-5xl max-h-[90vh] bg-white rounded-[3rem] shadow-2xl overflow-hidden flex flex-col pointer-events-auto"
+                  className="w-full max-w-[1440px] max-h-[85vh] bg-white rounded-[4rem] shadow-2xl overflow-hidden flex flex-col pointer-events-auto"
                 >
                   {/* Close Button */}
                   <button
-                    onClick={(e) => { e.stopPropagation(); setSelectedId(null); }}
+                    onClick={(e) => { e.stopPropagation(); handleClose(); }}
                     className="absolute top-8 right-8 z-[70] bg-black/50 hover:bg-black/70 text-white backdrop-blur-xl p-3 rounded-full transition-all active:scale-90"
                   >
                     <X size={24} />
@@ -163,19 +173,34 @@ export default function Collection() {
                         <div className="flex flex-col lg:flex-row min-h-full">
                           {/* Image/Video Preview Area */}
                           <div className="w-full lg:w-3/5 min-h-[400px] lg:min-h-full bg-black relative">
-                             <Image 
-                               src={item.imageUrl} 
-                               alt={item.title}
-                               fill
-                               className="object-cover opacity-80"
-                               unoptimized
-                             />
-                             <div className="absolute inset-0 flex items-center justify-center z-10">
-                               <div className="w-20 h-20 bg-white/20 backdrop-blur-2xl rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform border border-white/30">
-                                 <Play size={32} className="text-white ml-1" />
-                               </div>
-                             </div>
-                             <p className="absolute bottom-8 left-0 right-0 text-center text-white/60 font-medium z-10">{t('collection.clickPlay')}</p>
+                             {item.videoEmbedUrl && isPlaying ? (
+                               <iframe 
+                                 src={item.videoEmbedUrl} 
+                                 title={item.title}
+                                 className="w-full h-full border-0"
+                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                 referrerPolicy="strict-origin-when-cross-origin" 
+                                 allowFullScreen
+                               />
+                             ) : (
+                               <>
+                                 <Image 
+                                   src={item.imageUrl} 
+                                   alt={item.title}
+                                   fill
+                                   className="object-cover opacity-80"
+                                 />
+                                 <div className="absolute inset-0 flex items-center justify-center z-10">
+                                   <div 
+                                     onClick={() => setIsPlaying(true)}
+                                     className="w-20 h-20 bg-white/20 backdrop-blur-2xl rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform border border-white/30"
+                                   >
+                                     <Play size={32} className="text-white ml-1" />
+                                   </div>
+                                 </div>
+                                 <p className="absolute bottom-8 left-0 right-0 text-center text-white/60 font-medium z-10">{t('collection.clickPlay')}</p>
+                               </>
+                             )}
                           </div>
                           
                           {/* Rich Text Info Area */}
@@ -200,9 +225,14 @@ export default function Collection() {
                                 </div>
                                 
                                 <div className="pt-8 border-t border-border">
-                                   <button className="w-full py-4 bg-foreground text-background rounded-2xl font-bold hover:opacity-90 transition-opacity active:scale-[0.98]">
+                                   <a 
+                                     href={item.link || "#"} 
+                                     target={item.link ? "_blank" : "_self"}
+                                     rel="noopener noreferrer"
+                                     className="w-full py-4 bg-foreground text-background rounded-2xl font-bold hover:opacity-90 transition-opacity active:scale-[0.98] inline-flex items-center justify-center"
+                                   >
                                      {t('collection.viewLive')}
-                                   </button>
+                                   </a>
                                 </div>
                               </div>
                             </div>
