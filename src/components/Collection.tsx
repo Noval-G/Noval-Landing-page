@@ -26,7 +26,7 @@ const items: Item[] = [
     category: 'Game',
     description: 'From 2D Unity Action to 3D UE5 Solo Development',
     size: 'large',
-    imageUrl: '/GameCover.jpg',
+    imageUrl: '/Noval-Landing-page/GameCover.jpg',
     content: 'My journey began with a 3-month team project using Unity to create a 2D side-scrolling action game featuring a unique "Charge QTE Magic" system. This evolved into my final senior project, "XenoVersus"—a solo-developed Unreal Engine 5 experience. Despite the challenges of 4 months spent bridging C++ and Blueprints, and the shift from battle-mode to adventure, this project represents my most precious growth and technical breakthrough.',
     videoEmbedUrl: 'https://www.youtube.com/embed/cGez3Bq_BcI?si=_0YXgkP-RPerzAQy&autoplay=1',
   },
@@ -172,12 +172,12 @@ export default function Collection() {
                       return (
                         <div className="flex flex-col lg:flex-row min-h-full">
                           {/* Image/Video Preview Area */}
-                          <div className="w-full lg:w-3/5 min-h-[400px] lg:min-h-full bg-black relative">
+                          <div className="w-full lg:w-3/5 aspect-video lg:aspect-auto bg-black relative">
                              {item.videoEmbedUrl && isPlaying ? (
                                <iframe 
                                  src={item.videoEmbedUrl} 
                                  title={item.title}
-                                 className="w-full h-full border-0"
+                                 className="absolute inset-0 w-full h-full border-0"
                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                                  referrerPolicy="strict-origin-when-cross-origin" 
                                  allowFullScreen

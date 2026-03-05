@@ -79,7 +79,7 @@ export default function Timeline() {
         <div className="relative border-l border-border ml-3 md:ml-6 space-y-12">
           {/* Education */}
           <div className="mb-12 relative">
-            <span className="absolute -left-3 top-0 -translate-x-full bg-accent text-white px-3 py-1 text-xs font-bold rounded-md whitespace-nowrap">{t('timeline.edu.tag')}</span>
+            <span className="relative md:absolute md:-left-3 top-0 md:-translate-x-full bg-accent text-white px-3 py-1 text-xs font-bold rounded-md whitespace-nowrap mb-4 inline-block">{t('timeline.edu.tag')}</span>
             {education.map((edu, index) => (
                <div key={index} className="ml-8 md:ml-12 relative">
                   <span className="absolute -left-[45px] md:-left-[61px] top-1 w-4 h-4 rounded-full bg-white border-4 border-accent" />
@@ -93,7 +93,7 @@ export default function Timeline() {
 
           {/* Work Experience */}
           <div className="mb-12 relative">
-            <span className="absolute -left-3 top-0 -translate-x-full bg-blue-600 text-white px-3 py-1 text-xs font-bold rounded-md whitespace-nowrap">{t('timeline.work.tag')}</span>
+            <span className="relative md:absolute md:-left-3 top-0 md:-translate-x-full bg-blue-600 text-white px-3 py-1 text-xs font-bold rounded-md whitespace-nowrap mb-4 inline-block">{t('timeline.work.tag')}</span>
             {work.map((job, index) => (
                <div key={index} className="ml-8 md:ml-12 relative">
                   <span className="absolute -left-[45px] md:-left-[61px] top-1 w-4 h-4 rounded-full bg-white border-4 border-blue-600" />
@@ -107,7 +107,7 @@ export default function Timeline() {
 
           {/* Awards */}
           <div className="relative">
-             <span className="absolute -left-3 top-0 -translate-x-full bg-foreground text-white px-3 py-1 text-xs font-bold rounded-md whitespace-nowrap">{t('timeline.award.tag')}</span>
+             <span className="relative md:absolute md:-left-3 top-0 md:-translate-x-full bg-foreground text-white px-3 py-1 text-xs font-bold rounded-md whitespace-nowrap mb-4 inline-block">{t('timeline.award.tag')}</span>
              {awards.map((award, index) => (
                 <div key={index} className="ml-8 md:ml-12 mb-8 relative last:mb-0">
                    <span className="absolute -left-[45px] md:-left-[61px] top-1 w-4 h-4 rounded-full bg-white border-4 border-foreground" />
