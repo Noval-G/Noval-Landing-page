@@ -89,7 +89,7 @@ export default function Hero() {
           {t('hero.badge')}
         </span>
         
-        <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-10 leading-[1.3] ${language === 'zh' ? 'tracking-normal' : 'tracking-tight font-black'}`}>
+        <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-black bg-clip-text text-transparent mb-10 leading-[1.3] ${language === 'zh' ? 'tracking-normal' : 'tracking-tight font-black'}`}>
           {t('hero.title').split('  ').map((line, i) => (
             <span key={i} className="block">
               <TypewriterText text={line.trim()} delay={0.3 + i * 0.5} />

@@ -19,44 +19,6 @@ type Item = {
   videoEmbedUrl?: string;
 };
 
-const items: Item[] = [
-  {
-    id: '1',
-    title: 'Game Design Journey',
-    category: 'Game',
-    description: 'From 2D Unity Action to 3D UE5 Solo Development',
-    size: 'large',
-    imageUrl: '/Noval-Landing-page/GameCover.jpg',
-    content: 'My journey began with a 3-month team project using Unity to create a 2D side-scrolling action game featuring a unique "Charge QTE Magic" system. This evolved into my final senior project, "XenoVersus"—a solo-developed Unreal Engine 5 experience. Despite the challenges of 4 months spent bridging C++ and Blueprints, and the shift from battle-mode to adventure, this project represents my most precious growth and technical breakthrough.',
-    videoEmbedUrl: 'https://www.youtube.com/embed/cGez3Bq_BcI?si=_0YXgkP-RPerzAQy&autoplay=1',
-  },
-  {
-    id: '2',
-    title: 'WirForce Fight',
-    category: 'Competition',
-    description: 'Gundam Evolution (FPS) Champion Captain',
-    size: 'medium',
-    imageUrl: 'https://placehold.co/800x400/eab308/white?text=WirForce',
-  },
-  {
-    id: '3',
-    title: 'Design Portfolio',
-    category: 'Design',
-    description: 'Selected Graphic and Conceptual Design Work',
-    size: 'small',
-    imageUrl: 'https://placehold.co/400x400/16a34a/white?text=Design',
-  },
-  {
-    id: '5',
-    title: 'Video Portfolio',
-    category: 'Video',
-    description: 'Cinematic storytelling and digital content production',
-    size: 'medium',
-    imageUrl: 'https://placehold.co/800x400/dc2626/white?text=Video',
-    link: 'https://drive.google.com/drive/folders/1YQmfHgKgnowriEh3iKXD4TwJYp3CdIiD?usp=sharing',
-  },
-];
-
 export default function Collection() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -66,6 +28,45 @@ export default function Collection() {
     setSelectedId(null);
     setIsPlaying(false);
   };
+
+  const items: Item[] = [
+    {
+      id: '1',
+      title: t('collection.item.game.title'),
+      category: t('collection.item.game.category'),
+      description: t('collection.item.game.desc'),
+      size: 'large',
+      imageUrl: '/Noval-Landing-page/GameCover.jpg',
+      content: t('collection.item.game.content'),
+      videoEmbedUrl: 'https://www.youtube.com/embed/cGez3Bq_BcI?si=_0YXgkP-RPerzAQy&autoplay=1',
+      link: 'https://drive.google.com/drive/folders/1C6GjvJG5mlJQdzIvr-uwt25X-t6RMJAn?usp=sharing',
+    },
+    {
+      id: '2',
+      title: t('collection.item.wirforce.title'),
+      category: t('collection.item.wirforce.category'),
+      description: t('collection.item.wirforce.desc'),
+      size: 'medium',
+      imageUrl: 'https://placehold.co/800x400/eab308/white?text=WirForce',
+    },
+    {
+      id: '3',
+      title: t('collection.item.design.title'),
+      category: t('collection.item.design.category'),
+      description: t('collection.item.design.desc'),
+      size: 'small',
+      imageUrl: 'https://placehold.co/400x400/16a34a/white?text=Design',
+    },
+    {
+      id: '5',
+      title: t('collection.item.video.title'),
+      category: t('collection.item.video.category'),
+      description: t('collection.item.video.desc'),
+      size: 'medium',
+      imageUrl: 'https://placehold.co/800x400/dc2626/white?text=Video',
+      link: 'https://drive.google.com/drive/folders/1YQmfHgKgnowriEh3iKXD4TwJYp3CdIiD?usp=sharing',
+    },
+  ];
 
   return (
     <section id="collection" className="py-24 px-6 md:px-12 bg-white">
