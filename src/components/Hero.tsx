@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
+import CVModal from './CVModal';
 
 const TypewriterText = ({ text, delay = 0, className = "" }: { text: string, delay?: number, className?: string }) => {
   const characters = Array.from(text);
@@ -38,6 +39,7 @@ const TypewriterText = ({ text, delay = 0, className = "" }: { text: string, del
 export default function Hero() {
   const { t, language } = useLanguage();
   const [mounted, setMounted] = useState(false);
+  const [isCVOpen, setIsCVOpen] = useState(false);
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -108,6 +110,12 @@ export default function Hero() {
           >
             {t('hero.explore')}
           </a>
+          <button 
+            onClick={() => setIsCVOpen(true)}
+            className="px-10 py-5 bg-foreground text-background font-bold rounded-full text-lg hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-1 transition-all active:scale-95 text-center flex items-center justify-center gap-2"
+          >
+            {t('hero.cv')} <span>📄</span>
+          </button>
           <a 
             href="#contact" 
             className="px-10 py-5 bg-transparent border border-foreground/20 text-foreground font-bold rounded-full text-lg hover:bg-foreground/5 transition-all active:scale-95 text-center group backdrop-blur-sm"
@@ -116,6 +124,8 @@ export default function Hero() {
           </a>
         </div>
       </motion.div>
+
+      <CVModal isOpen={isCVOpen} onClose={() => setIsCVOpen(false)} />
     </section>
   );
 }

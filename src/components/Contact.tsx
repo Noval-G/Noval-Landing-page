@@ -1,11 +1,13 @@
 'use client';
 
-import { Mail, Phone, Copy, Check } from 'lucide-react';
+import { Mail, Phone, Copy, Check, FileText } from 'lucide-react';
 import { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
+import CVModal from './CVModal';
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
+  const [isCVOpen, setIsCVOpen] = useState(false);
   const email = "sofreeai@gmail.com";
   const { t } = useLanguage();
 
@@ -46,15 +48,30 @@ export default function Contact() {
             </div>
             <div className="text-left">
               <p className="text-xs text-muted font-semibold uppercase">{t('contact.call')}</p>
-              <p className="text-foreground font-medium">+853 63939694 / +852 44136069</p>
+              <div className="flex flex-col">
+                <p className="text-foreground font-medium">+853 63939694</p>
+                <p className="text-[10px] text-muted font-medium mt-1 italic">{t('contact.call.note')}</p>
+              </div>
             </div>
           </div>
+        </div>
+
+        <div className="mb-12">
+          <button 
+            onClick={() => setIsCVOpen(true)}
+            className="inline-flex items-center gap-2 text-accent font-bold hover:underline group"
+          >
+            <FileText size={18} className="group-hover:scale-110 transition-transform" />
+            {t('hero.cv')}
+          </button>
         </div>
 
         <p className="text-muted text-sm">
           © {new Date().getFullYear()} IEONG HOI LONG NOVAL. {t('contact.rights')}
         </p>
       </div>
+
+      <CVModal isOpen={isCVOpen} onClose={() => setIsCVOpen(false)} />
     </footer>
   );
 }

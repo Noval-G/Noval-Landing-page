@@ -24,6 +24,9 @@ export default function Collection() {
   const [isPlaying, setIsPlaying] = useState(false);
   const { t } = useLanguage();
 
+  const isProd = process.env.NODE_ENV === 'production';
+  const basePath = isProd ? '/Noval-Landing-page' : '';
+
   const handleClose = () => {
     setSelectedId(null);
     setIsPlaying(false);
@@ -36,18 +39,10 @@ export default function Collection() {
       category: t('collection.item.game.category'),
       description: t('collection.item.game.desc'),
       size: 'large',
-      imageUrl: '/Noval-Landing-page/GameCover.jpg',
+      imageUrl: `${basePath}/GameCover.jpg`,
       content: t('collection.item.game.content'),
       videoEmbedUrl: 'https://www.youtube.com/embed/cGez3Bq_BcI?si=_0YXgkP-RPerzAQy&autoplay=1',
       link: 'https://drive.google.com/drive/folders/1C6GjvJG5mlJQdzIvr-uwt25X-t6RMJAn?usp=sharing',
-    },
-    {
-      id: '2',
-      title: t('collection.item.wirforce.title'),
-      category: t('collection.item.wirforce.category'),
-      description: t('collection.item.wirforce.desc'),
-      size: 'medium',
-      imageUrl: 'https://placehold.co/800x400/eab308/white?text=WirForce',
     },
     {
       id: '3',
@@ -55,7 +50,9 @@ export default function Collection() {
       category: t('collection.item.design.category'),
       description: t('collection.item.design.desc'),
       size: 'small',
-      imageUrl: 'https://placehold.co/400x400/16a34a/white?text=Design',
+      imageUrl: `${basePath}/NovalLogo.png`,
+      content: t('collection.item.design.content'),
+      link: 'https://drive.google.com/drive/folders/1Wk17g126-y7cLMWnVSiVn7nmTgHMDqak?usp=sharing',
     },
     {
       id: '5',
@@ -63,7 +60,8 @@ export default function Collection() {
       category: t('collection.item.video.category'),
       description: t('collection.item.video.desc'),
       size: 'medium',
-      imageUrl: 'https://placehold.co/800x400/dc2626/white?text=Video',
+      imageUrl: 'https://placehold.co/1200x400/dc2626/white?text=Video',
+      content: t('collection.item.video.content'),
       link: 'https://drive.google.com/drive/folders/1YQmfHgKgnowriEh3iKXD4TwJYp3CdIiD?usp=sharing',
     },
   ];
@@ -103,7 +101,7 @@ export default function Collection() {
               onClick={() => setSelectedId(item.id)}
               className={`relative cursor-pointer group rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 ${
                 item.id === '1' ? 'md:col-span-4 md:row-span-1' :
-                item.size === 'medium' ? 'md:col-span-2 md:row-span-1' :
+                item.id === '5' ? 'md:col-span-3 md:row-span-1' :
                 'md:col-span-1 md:row-span-1'
               }`}
             >
@@ -113,16 +111,23 @@ export default function Collection() {
                   src={item.imageUrl} 
                   alt={item.title}
                   fill
-                  className={`object-cover transition-all duration-700 group-hover:scale-105 ${item.id === '1' ? 'blur-[2px] brightness-75' : ''}`}
+                  className={`object-cover transition-all duration-700 group-hover:scale-105 ${(item.id === '1' || item.id === '3') ? 'blur-[2px] brightness-75' : ''}`}
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
               </div>
 
-              {/* Special Overlay for Game Design */}
+              {/* Special Overlay for Hero Items */}
               {item.id === '1' && (
                 <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                  <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter opacity-90 group-hover:scale-110 transition-transform duration-700 drop-shadow-2xl">
+                  <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter opacity-100 group-hover:scale-110 transition-transform duration-700 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] drop-shadow-[0_0_15px_rgba(0,0,0,0.3)]">
                     GAME DESIGN
+                  </h2>
+                </div>
+              )}
+              {item.id === '3' && (
+                <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                  <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter opacity-100 group-hover:scale-110 transition-transform duration-700 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] drop-shadow-[0_0_15px_rgba(0,0,0,0.3)]">
+                    DESIGN
                   </h2>
                 </div>
               )}
@@ -189,17 +194,21 @@ export default function Collection() {
                                    src={item.imageUrl} 
                                    alt={item.title}
                                    fill
-                                   className="object-cover opacity-80"
+                                   className={`object-cover ${item.videoEmbedUrl ? 'opacity-80' : 'opacity-100'}`}
                                  />
-                                 <div className="absolute inset-0 flex items-center justify-center z-10">
-                                   <div 
-                                     onClick={() => setIsPlaying(true)}
-                                     className="w-20 h-20 bg-white/20 backdrop-blur-2xl rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform border border-white/30"
-                                   >
-                                     <Play size={32} className="text-white ml-1" />
-                                   </div>
-                                 </div>
-                                 <p className="absolute bottom-8 left-0 right-0 text-center text-white/60 font-medium z-10">{t('collection.clickPlay')}</p>
+                                 {item.videoEmbedUrl && (
+                                   <>
+                                     <div className="absolute inset-0 flex items-center justify-center z-10">
+                                       <div 
+                                         onClick={() => setIsPlaying(true)}
+                                         className="w-20 h-20 bg-white/20 backdrop-blur-2xl rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform border border-white/30"
+                                       >
+                                         <Play size={32} className="text-white ml-1" />
+                                       </div>
+                                     </div>
+                                     <p className="absolute bottom-8 left-0 right-0 text-center text-white/60 font-medium z-10">{t('collection.clickPlay')}</p>
+                                   </>
+                                 )}
                                </>
                              )}
                           </div>

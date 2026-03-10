@@ -27,6 +27,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.subtitle': 'Hi, I\'m Noval. I bridge the worlds of Game Design, IT, and Media Production. As a coordinator, I simplify complexity and optimize workflows—transforming technical challenges into seamless, high-impact creative output.',
     'hero.explore': 'Explore Work',
     'hero.contact': 'Contact Me',
+    'hero.cv': 'Quick View CV',
     // About
     'about.badge': 'About Me',
     'about.title': 'A coordinator who blends art with technology.',
@@ -80,10 +81,12 @@ const translations: Record<Language, Record<string, string>> = {
     'collection.item.wirforce.desc': 'Gundam Evolution (FPS) Champion Captain',
     'collection.item.design.title': 'Design Portfolio',
     'collection.item.design.category': 'Design',
-    'collection.item.design.desc': 'Selected Graphic and Conceptual Design Work',
+    'collection.item.design.desc': 'The aesthetic foundation of every creative endeavor.',
+    'collection.item.design.content': 'Design is where it all begins—the soul of my creative process. Today, I no longer view design as a standalone visual asset; instead, I integrate it deeply into my cinematic storytelling and interactive game mechanics. It is the invisible thread that weaves together every moving experience I create.',
     'collection.item.video.title': 'Video Portfolio',
     'collection.item.video.category': 'Video',
-    'collection.item.video.desc': 'Cinematic storytelling and digital content production',
+    'collection.item.video.desc': 'Where boundless imagination meets deep emotional resonance.',
+    'collection.item.video.content': 'My mind is a constant whirlpool of boundless imagination and vivid cinematic visions. In every frame, I weave deep emotional reflections, striving to capture moments that resonate with the human heart. I am driven by the passion to create evocative visual stories that move, inspire, and connect with people on a profound level.',
     // Timeline
     'timeline.title': 'Journey',
     'timeline.desc': 'Education and recognition along the way.',
@@ -117,7 +120,8 @@ const translations: Record<Language, Record<string, string>> = {
     // Contact
     'contact.title': "Let's Create Something Amazing",
     'contact.email': 'Email Me',
-    'contact.call': 'Call Me',
+    'contact.call': 'Call or Message',
+    'contact.call.note': 'A quick WhatsApp message before calling is preferred.',
     'contact.copy': 'Copy Email',
     'contact.copied': 'Copied!',
     'contact.rights': 'All rights reserved.'
@@ -138,6 +142,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.subtitle': '我是 Noval，跨越遊戲、IT 與影像的轉化樞紐。以嚴謹邏輯拆解複雜，以藝術直覺重塑表達——致力於降本增效，讓創意在技術的軌道上無縫奔馳。',
     'hero.explore': '閱覽作品',
     'hero.contact': '聯絡我',
+    'hero.cv': '快速查看履歷',
     // About
     'about.badge': '關於我',
     'about.title': '融合藝術與科技的協調者',
@@ -191,10 +196,12 @@ const translations: Record<Language, Record<string, string>> = {
     'collection.item.wirforce.desc': 'Gundam Evolution (FPS) 奪冠隊伍隊長',
     'collection.item.design.title': '設計作品集',
     'collection.item.design.category': '平面設計',
-    'collection.item.design.desc': '精選平面視覺與概念設計作品',
+    'collection.item.design.desc': '設計是我所有創意與美學的起源',
+    'collection.item.design.content': '設計是萬物的起點，也是我所有創作的靈魂。在我的實踐中，我不再單獨設計完整的視覺海報，而是將設計思維深度根植於影像敘事與遊戲體驗中。設計對我而言不再是獨立的資產，而是賦予動態體驗靈魂與質感的美學根基。',
     'collection.item.video.title': '影像作品集',
     'collection.item.video.category': '影像製作',
-    'collection.item.video.desc': '電影感敘事與數位內容創作',
+    'collection.item.video.desc': '天馬行空的想像，與感人至深的情感共鳴',
+    'collection.item.video.content': '我的腦海中時常奔湧著天馬行空的想像，以及渴望透過螢幕傳遞的表演張力。在每一個鏡頭中，我都傾注了對情感表現的深度思考，力求在光影交織間捕捉那些能直抵人心的溫暖與震撼。我熱衷於創造能引起共鳴、甚至流下感動淚水的動態影像。',
     // Timeline
     'timeline.title': '旅程',
     'timeline.desc': '教育背景與榮譽肯定。',
@@ -228,7 +235,8 @@ const translations: Record<Language, Record<string, string>> = {
     // Contact
     'contact.title': '一起創造驚豔的作品',
     'contact.email': 'Email 給我',
-    'contact.call': '致電給我',
+    'contact.call': '聯絡或致電給我',
+    'contact.call.note': '（建議先 WhatsApp 聯繫，以便我最快回覆您）',
     'contact.copy': '複製 Email',
     'contact.copied': '已複製！',
     'contact.rights': '保留所有權利。'
