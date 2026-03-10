@@ -76,14 +76,29 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
             ${content.parentElement?.innerHTML || content.innerHTML}
           </div>
           <script>
-            document.fonts.ready.then(() => {
-              setTimeout(() => {
-                window.print();
+            // Improved loading detection
+            const waitForImages = () => {
+              const images = Array.from(document.images);
+              return Promise.all(images.map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(resolve => {
+                  img.onload = resolve;
+                  img.onerror = resolve; // Continue even if an image fails
+                });
+              }));
+            };
+
+            window.onload = () => {
+              Promise.all([document.fonts.ready, waitForImages()]).then(() => {
+                // Final brief delay for rendering engine layout stability
                 setTimeout(() => {
-                  window.frameElement.remove();
-                }, 500);
-              }, 1000);
-            });
+                  window.print();
+                  setTimeout(() => {
+                    window.frameElement.remove();
+                  }, 500);
+                }, 1000);
+              });
+            };
           </script>
         </body>
       </html>
