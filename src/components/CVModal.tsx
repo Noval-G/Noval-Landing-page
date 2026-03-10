@@ -17,9 +17,9 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
   };
 
   const skillGroups = [
-    { icon: <Code size={10} />, items: ['UE5 (C++/BP)', 'Unity (C#)'] },
-    { icon: <Camera size={10} />, items: ['Adobe PR / PS', 'Shooting'] },
-    { icon: <Zap size={10} />, items: ['AI Prompt', 'Game QA'] }
+    { label: 'Engine', icon: <Code size={10} />, items: ['UE5 (C++/BP)', 'Unity (C#)'] },
+    { label: 'Media', icon: <Camera size={10} />, items: ['Adobe PR / PS', 'Shooting'] },
+    { label: 'Tech', icon: <Zap size={10} />, items: ['AI Prompt', 'Game QA'] }
   ];
 
   return (
