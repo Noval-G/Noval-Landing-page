@@ -202,19 +202,21 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
 
           <style jsx global>{`
             @media print {
-              /* Hide everything by default */
-              body * {
-                visibility: hidden;
-              }
-              .no-print, .no-print * {
+              /* 1. Hide everything on the page */
+              body > * {
                 display: none !important;
               }
-              /* Show only the CV content and its parents */
-              #cv-content, #cv-content * {
-                visibility: visible;
+              /* 2. Show the modal and the CV content specifically */
+              .fixed.inset-0.z-\\[101\\], 
+              .fixed.inset-0.z-\\[101\\] > *,
+              #cv-content,
+              #cv-content * {
+                display: flex !important;
+                visibility: visible !important;
               }
+              /* 3. Reset the CV content for perfect A4 output */
               #cv-content {
-                position: fixed !important;
+                position: absolute !important;
                 left: 0 !important;
                 top: 0 !important;
                 width: 210mm !important;
@@ -225,11 +227,22 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
                 box-shadow: none !important;
                 border: none !important;
                 background: white !important;
-                z-index: 9999 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+              }
+              /* 4. Hide UI elements like the toolbar during print */
+              .no-print {
+                display: none !important;
+              }
+              /* 5. General page settings */
+              @page {
+                size: A4;
+                margin: 0;
               }
               body {
                 background: white !important;
                 margin: 0 !important;
+                height: auto !important;
               }
             }
             .custom-scrollbar::-webkit-scrollbar { width: 8px; }
