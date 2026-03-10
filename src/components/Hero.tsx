@@ -93,9 +93,9 @@ export default function Hero({ onOpenCV }: HeroProps) {
           {t('hero.badge')}
         </span>
         
-        <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-black bg-clip-text text-transparent mb-10 leading-[1.3] ${language === 'zh' ? 'tracking-normal' : 'tracking-tight font-black'}`}>
+        <h1 className={`text-[clamp(2rem,10vw,5.5rem)] md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-black bg-clip-text text-transparent mb-10 leading-[1.2] ${language === 'zh' ? 'tracking-normal' : 'tracking-tight font-black'}`}>
           {t('hero.title').split('  ').map((line, i) => (
-            <span key={i} className="block">
+            <span key={i} className="block whitespace-nowrap overflow-visible">
               <TypewriterText text={line.trim()} delay={0.3 + i * 0.5} />
             </span>
           ))}
