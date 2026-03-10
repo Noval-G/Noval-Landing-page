@@ -47,7 +47,7 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
               <div className="px-8 py-4 bg-zinc-900 flex justify-between items-center text-white shrink-0">
                 <div className="flex items-center gap-3 font-bold uppercase tracking-widest text-[10px] md:text-xs opacity-70">
                    <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                   {language === 'zh' ? '專業簡歷預覽' : 'Professional Resume'}
+                   {language === 'zh' ? '簡歷預覽' : 'Resume Preview'}
                 </div>
                 <div className="flex items-center gap-4">
                   <button onClick={handlePrint} className="flex items-center gap-2 px-5 py-2 bg-accent text-white rounded-full text-xs md:text-sm font-bold shadow-lg shadow-accent/20 transition-all hover:scale-105 active:scale-95">
@@ -202,16 +202,34 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
 
           <style jsx global>{`
             @media print {
-              .no-print { display: none !important; }
-              body { background: white !important; margin: 0 !important; }
+              /* Hide everything by default */
+              body * {
+                visibility: hidden;
+              }
+              .no-print, .no-print * {
+                display: none !important;
+              }
+              /* Show only the CV content and its parents */
+              #cv-content, #cv-content * {
+                visibility: visible;
+              }
               #cv-content {
-                box-shadow: none !important;
-                width: 210mm !important;
-                height: 297mm !important;
-                transform: none !important;
-                position: absolute !important;
+                position: fixed !important;
                 left: 0 !important;
                 top: 0 !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                margin: 0 !important;
+                padding: 20mm !important;
+                transform: none !important;
+                box-shadow: none !important;
+                border: none !important;
+                background: white !important;
+                z-index: 9999 !important;
+              }
+              body {
+                background: white !important;
+                margin: 0 !important;
               }
             }
             .custom-scrollbar::-webkit-scrollbar { width: 8px; }
