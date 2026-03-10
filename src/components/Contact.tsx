@@ -3,11 +3,13 @@
 import { Mail, Phone, Copy, Check, FileText } from 'lucide-react';
 import { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-import CVModal from './CVModal';
 
-export default function Contact() {
+interface ContactProps {
+  onOpenCV: () => void;
+}
+
+export default function Contact({ onOpenCV }: ContactProps) {
   const [copied, setCopied] = useState(false);
-  const [isCVOpen, setIsCVOpen] = useState(false);
   const email = "sofreeai@gmail.com";
   const { t } = useLanguage();
 
@@ -58,7 +60,7 @@ export default function Contact() {
 
         <div className="mb-12">
           <button 
-            onClick={() => setIsCVOpen(true)}
+            onClick={onOpenCV}
             className="inline-flex items-center gap-2 text-accent font-bold hover:underline group"
           >
             <FileText size={18} className="group-hover:scale-110 transition-transform" />
@@ -70,8 +72,6 @@ export default function Contact() {
           © {new Date().getFullYear()} IEONG HOI LONG NOVAL. {t('contact.rights')}
         </p>
       </div>
-
-      <CVModal isOpen={isCVOpen} onClose={() => setIsCVOpen(false)} />
     </footer>
   );
 }

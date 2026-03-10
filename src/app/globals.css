@@ -82,3 +82,10 @@ body {
 .animate-pulse-slower {
   animation: pulse-slower 12s infinite ease-in-out;
 }
+
+/* Base Print Overrides */
+@media print {
+  .no-print, button, nav {
+    display: none !important;
+  }
+}

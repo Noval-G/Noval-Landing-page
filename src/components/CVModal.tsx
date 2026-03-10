@@ -13,7 +13,82 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
   const { t, language } = useLanguage();
 
   const handlePrint = () => {
-    window.print();
+    const content = document.getElementById('cv-content');
+    if (!content) return;
+
+    // Create hidden iframe
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentWindow?.document;
+    if (!doc) return;
+
+    // Clone all head elements to maintain fonts and Tailwind styles
+    const headHTML = document.head.innerHTML;
+
+    doc.write(`
+      <!DOCTYPE html>
+      <html class="${document.documentElement.className}">
+        <head>
+          ${headHTML}
+          <style>
+            @page { size: A4; margin: 0; }
+            body { 
+              margin: 0 !important; 
+              padding: 0 !important; 
+              background: white !important; 
+              -webkit-print-color-adjust: exact !important; 
+              print-color-adjust: exact !important;
+            }
+            .print-container {
+              width: 210mm !important;
+              height: 297mm !important;
+              padding: 0 !important;
+              margin: 0 !important;
+              background: white !important;
+              display: flex !important;
+              flex-direction: column !important;
+            }
+            /* Reset the scaling wrapper inside print */
+            .scale-wrapper {
+              transform: none !important;
+              scale: 1 !important;
+              width: 100% !important;
+              height: 100% !important;
+            }
+            #cv-content {
+              width: 210mm !important;
+              height: 297mm !important;
+              box-shadow: none !important;
+              margin: 0 !important;
+              transform: none !important;
+            }
+          </style>
+        </head>
+        <body class="${document.body.className}">
+          <div class="print-container">
+            ${content.parentElement?.innerHTML || content.innerHTML}
+          </div>
+          <script>
+            document.fonts.ready.then(() => {
+              setTimeout(() => {
+                window.print();
+                setTimeout(() => {
+                  window.frameElement.remove();
+                }, 500);
+              }, 1000);
+            });
+          </script>
+        </body>
+      </html>
+    `);
+    doc.close();
   };
 
   const expertiseItems = [
@@ -36,6 +111,7 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
 
           {/* Modal Container */}
           <motion.div
+            id="resume-modal-root"
             initial={{ opacity: 0, scale: 0.98, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: 30 }}
@@ -57,82 +133,87 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
                 </div>
               </div>
 
-              {/* CV Content Area - Responsive Scaling Container */}
+              {/* CV Content Area */}
               <div className="flex-1 overflow-auto p-4 md:p-12 bg-zinc-100 flex justify-center items-start custom-scrollbar">
                 
-                {/* The STRICT A4 CONTAINER */}
-                <div 
-                  id="cv-content" 
-                  className="bg-white w-[210mm] min-w-[210mm] h-[297mm] min-h-[297mm] p-0 text-gray-800 flex flex-col origin-top shadow-2xl box-border overflow-hidden scale-[0.4] sm:scale-[0.6] md:scale-[0.85] lg:scale-100 transition-transform"
-                >
-                  
-                  {/* Header */}
-                  <header className="bg-zinc-50 border-b border-zinc-200 px-[20mm] py-12 text-center relative shrink-0">
-                    <div className="absolute top-0 left-0 w-2 h-full bg-accent" />
-                    <h1 className="text-5xl font-black tracking-tighter text-gray-900 mb-2 uppercase">IEONG HOI LONG</h1>
-                    <div className="flex justify-center items-center gap-4 text-accent font-bold mb-8">
-                      <span className="text-2xl">NOVAL</span>
-                      <div className="w-1.5 h-1.5 bg-zinc-300 rounded-full" />
-                      <span className="text-sm uppercase tracking-[0.3em] text-gray-400 font-black">{t('hero.badge')}</span>
-                    </div>
-                    <div className="flex justify-center gap-10 text-[12px] font-black text-gray-600">
-                      <span className="flex items-center gap-2"><Mail size={14} className="text-accent" /> sofreeai@gmail.com</span>
-                      <span className="flex items-center gap-2"><Phone size={14} className="text-accent" /> +853 63939694</span>
-                    </div>
-                  </header>
-
-                  <div className="grid grid-cols-12 flex-1 overflow-hidden">
+                {/* 
+                  IMPORTANT: This wrapper handles SCREEN scaling.
+                  The 'print:!block print:!p-0 print:!m-0' ensures that during print, 
+                  this wrapper doesn't apply any layout constraints or transforms.
+                */}
+                <div className="scale-[0.4] sm:scale-[0.6] md:scale-[0.85] lg:scale-100 origin-top transition-transform print:!transform-none print:!block print:!static">
+                  {/* The STRICT A4 CONTAINER - This ID must be unique and will be targeted by print CSS */}
+                  <div 
+                    id="cv-content" 
+                    className="bg-white w-[210mm] min-w-[210mm] h-[297mm] min-h-[297mm] p-0 text-gray-800 flex flex-col shadow-2xl box-border overflow-hidden print:!shadow-none print:!m-0 print:!p-0"
+                  >
                     
-                    {/* Left Main Column */}
-                    <div className="col-span-7 px-[15mm] py-10 space-y-10 border-r border-zinc-100">
-                      <section>
-                        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 flex items-center gap-3">
-                           <Zap size={14} /> {language === 'zh' ? '個人簡介' : 'Profile Summary'}
-                        </h3>
-                        <p className="text-[12px] leading-[1.8] text-gray-700 font-medium italic bg-zinc-50 p-5 rounded-2xl border-l-2 border-accent/20">
-                          "{t('about.desc')}"
-                        </p>
-                      </section>
+                    {/* Header */}
+                    <header className="bg-zinc-50 border-b border-zinc-200 px-[20mm] py-12 text-center relative shrink-0">
+                      <div className="absolute top-0 left-0 w-2 h-full bg-accent" />
+                      <h1 className="text-5xl font-black tracking-tighter text-gray-900 mb-2 uppercase">IEONG HOI LONG</h1>
+                      <div className="flex justify-center items-center gap-4 text-accent font-bold mb-8">
+                        <span className="text-2xl">NOVAL</span>
+                        <div className="w-1.5 h-1.5 bg-zinc-300 rounded-full" />
+                        <span className="text-sm uppercase tracking-[0.3em] text-gray-400 font-black">{t('hero.badge')}</span>
+                      </div>
+                      <div className="flex justify-center gap-10 text-[12px] font-black text-gray-600">
+                        <span className="flex items-center gap-2"><Mail size={14} className="text-accent" /> sofreeai@gmail.com</span>
+                        <span className="flex items-center gap-2"><Phone size={14} className="text-accent" /> +853 63939694</span>
+                      </div>
+                    </header>
 
-                      <section>
-                        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300 mb-6 flex items-center gap-3">
-                           <Briefcase size={16} className="text-accent" /> {language === 'zh' ? '工作經歷' : 'Experience'}
-                        </h3>
-                        <div className="relative pl-6 border-l-2 border-zinc-100">
-                           <div className="absolute -left-[31px] top-0 w-3 h-3 bg-white border-2 border-accent rounded-full shadow-sm" />
-                           <div className="flex justify-between items-start mb-1">
-                             <h4 className="text-lg font-black text-gray-900 leading-tight">{t('timeline.work.mlsa')}</h4>
-                             <span className="text-[9px] font-black text-gray-400">2025 — 2026</span>
-                           </div>
-                           <p className="text-[11px] font-bold text-accent uppercase tracking-widest mb-3">{t('timeline.work.assistant')}</p>
-                           <p className="text-[11px] leading-[1.7] text-gray-500 font-medium">{t('timeline.work.mlsa.desc')}</p>
-                        </div>
-                      </section>
+                    <div className="grid grid-cols-12 flex-1 overflow-hidden">
+                      <div className="col-span-7 px-[15mm] py-10 space-y-10 border-r border-zinc-100">
+                        <section>
+                          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 flex items-center gap-3">
+                             <Zap size={14} /> {language === 'zh' ? '個人簡介' : 'Profile Summary'}
+                          </h3>
+                          <div className="bg-zinc-50 p-5 rounded-2xl border-l-2 border-accent/20">
+                            <p className="text-[12px] leading-[1.7] text-gray-700 font-medium italic">
+                              "{t('about.desc')}"
+                            </p>
+                          </div>
+                        </section>
 
-                      <section>
-                        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300 mb-6 flex items-center gap-3">
-                           <Layout size={16} className="text-accent" /> {language === 'zh' ? '精選專案' : 'Selected Projects'}
-                        </h3>
-                        <div className="space-y-5">
-                           <div className="pl-6 border-l-2 border-zinc-100 relative">
-                              <div className="absolute -left-[7px] top-1.5 w-1.5 h-1.5 bg-gray-200 rounded-full" />
-                              <h4 className="text-[13px] font-black text-gray-900 mb-1.5 uppercase tracking-tight">XenoVersus | UE5 Solo Project</h4>
-                              <p className="text-[11px] leading-[1.7] text-gray-500 font-medium italic">{language === 'zh' ? '獨自開發動作冒險遊戲，整合 C++ 與藍圖系統，展現技術研發實力。' : 'Solo-developed UE5 project integrating C++ and Blueprints, showing technical R&D skills.'}</p>
-                           </div>
-                           <div className="pl-6 border-l-2 border-zinc-100 relative">
-                              <div className="absolute -left-[7px] top-1.5 w-1.5 h-1.5 bg-gray-200 rounded-full" />
-                              <h4 className="text-[13px] font-black text-gray-900 mb-1.5 uppercase tracking-tight">Cinematic Video Portfolio</h4>
-                              <p className="text-[11px] leading-[1.7] text-gray-500 font-medium italic">{language === 'zh' ? '主導多項高視覺衝擊力影片製作，致力於感動人心的視覺呈現。' : 'Leading high-impact video productions focused on evocative visual experiences.'}</p>
-                           </div>
-                        </div>
-                      </section>
-                    </div>
+                        <section>
+                          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300 mb-6 flex items-center gap-3">
+                             <Briefcase size={16} className="text-accent" /> {language === 'zh' ? '工作經歷' : 'Experience'}
+                          </h3>
+                          <div className="relative pl-6 border-l-2 border-zinc-100">
+                             <div className="absolute -left-[31px] top-0 w-3 h-3 bg-white border-2 border-accent rounded-full shadow-sm" />
+                             <div className="flex justify-between items-start mb-1">
+                               <h4 className="text-lg font-black text-gray-900 leading-tight">{t('timeline.work.mlsa')}</h4>
+                               <span className="text-[9px] font-black text-gray-400">2025 — 2026</span>
+                             </div>
+                             <p className="text-[11px] font-bold text-accent uppercase tracking-widest mb-3">{t('timeline.work.assistant')}</p>
+                             <p className="text-[11px] leading-[1.7] text-gray-500 font-medium">{t('timeline.work.mlsa.desc')}</p>
+                          </div>
+                        </section>
 
-                    {/* Right Sidebar */}
-                    <div className="col-span-5 px-[10mm] py-10 space-y-10 flex flex-col">
-                      <section>
-                        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300 mb-5 flex items-center gap-2">
-                           <GraduationCap size={14} className="text-accent" /> {language === 'zh' ? '教育背景' : 'Education'}
+                        <section>
+                          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300 mb-6 flex items-center gap-3">
+                             <Layout size={16} className="text-accent" /> {language === 'zh' ? '精選專案' : 'Selected Projects'}
+                          </h3>
+                          <div className="space-y-5">
+                             <div className="pl-6 border-l-2 border-zinc-100 relative">
+                                <div className="absolute -left-[7px] top-1.5 w-1.5 h-1.5 bg-gray-200 rounded-full" />
+                                <h4 className="text-[13px] font-black text-gray-900 mb-1.5 uppercase tracking-tight">XenoVersus | UE5 Solo Project</h4>
+                                <p className="text-[11px] leading-[1.7] text-gray-500 font-medium italic">{language === 'zh' ? '獨自使用 Unreal Engine 5 開發，整合 C++ 與藍圖系統，展現技術研發實力。' : 'Solo-developed UE5 project integrating C++ and Blueprints, showing technical R&D skills.'}</p>
+                             </div>
+                             <div className="pl-6 border-l-2 border-zinc-100 relative">
+                                <div className="absolute -left-[7px] top-1.5 w-1.5 h-1.5 bg-gray-200 rounded-full" />
+                                <h4 className="text-[13px] font-black text-gray-900 mb-1.5 uppercase tracking-tight">Cinematic Video Portfolio</h4>
+                                <p className="text-[11px] leading-[1.7] text-gray-500 font-medium italic">{language === 'zh' ? '主導多項高視覺衝擊力影片製作，致力於感動人心的視覺呈現。' : 'Leading high-impact video productions focused on evocative visual experiences.'}</p>
+                             </div>
+                          </div>
+                        </section>
+                      </div>
+
+                      <div className="col-span-5 px-[10mm] py-10 space-y-10 flex flex-col">
+                        <section>
+                          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300 mb-5 flex items-center gap-2">
+                             <GraduationCap size={14} className="text-accent" /> {language === 'zh' ? '教育背景' : 'Education'}
                         </h3>
                         <div className="space-y-1">
                            <p className="text-[9px] font-black text-accent tracking-widest uppercase">2020 — 2024</p>
@@ -189,79 +270,16 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
                     </div>
                   </div>
 
-                  {/* Clean Brand Footer */}
-                  <footer className="bg-zinc-900 px-10 py-4 flex justify-between items-center text-white/30 shrink-0">
-                    <p className="text-[7px] font-bold tracking-[0.5em] uppercase">IEONG HOI LONG NOVAL</p>
-                    <p className="text-[7px] font-bold tracking-[0.2em] uppercase italic">Crafting Logic & Art</p>
-                  </footer>
+                    {/* Clean Brand Footer */}
+                    <footer className="bg-zinc-900 px-10 py-4 flex justify-between items-center text-white/30 shrink-0">
+                      <p className="text-[7px] font-bold tracking-[0.5em] uppercase">IEONG HOI LONG NOVAL</p>
+                      <p className="text-[7px] font-bold tracking-[0.2em] uppercase italic">Crafting Logic & Art</p>
+                    </footer>
+                  </div>
                 </div>
-
               </div>
             </div>
           </motion.div>
-
-          <style jsx global>{`
-            @media print {
-              /* 1. Hide only the non-modal content */
-              body > *:not(.fixed.inset-0.z-\\[101\\]),
-              main,
-              nav,
-              section,
-              footer:not(.bg-zinc-900) {
-                display: none !important;
-              }
-              
-              /* 2. Reset containers to ensure the A4 is the root of the print */
-              .fixed.inset-0.z-\\[101\\],
-              .fixed.inset-0.z-\\[101\\] > div {
-                position: static !important;
-                display: block !important;
-                width: auto !important;
-                height: auto !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                overflow: visible !important;
-                box-shadow: none !important;
-                background: white !important;
-              }
-
-              /* 3. Force the A4 paper to be the only thing on the page */
-              #cv-content {
-                position: absolute !important;
-                left: 0 !important;
-                top: 0 !important;
-                width: 210mm !important;
-                height: 297mm !important;
-                transform: none !important;
-                margin: 0 !important;
-                box-shadow: none !important;
-                border: none !important;
-                visibility: visible !important;
-                display: flex !important;
-                background: white !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-              }
-
-              /* 4. Ensure nested text is visible */
-              #cv-content * {
-                visibility: visible !important;
-              }
-
-              /* 5. Hide UI toolbars */
-              .no-print,
-              .bg-zinc-900.flex.justify-between.items-center {
-                display: none !important;
-              }
-
-              @page {
-                size: A4;
-                margin: 0;
-              }
-            }
-            .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-            .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
-          `}</style>
         </>
       )}
     </AnimatePresence>
