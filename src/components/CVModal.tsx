@@ -202,47 +202,61 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
 
           <style jsx global>{`
             @media print {
-              /* 1. Hide everything on the page */
-              body > * {
+              /* 1. Hide only the non-modal content */
+              body > *:not(.fixed.inset-0.z-\\[101\\]),
+              main,
+              nav,
+              section,
+              footer:not(.bg-zinc-900) {
                 display: none !important;
               }
-              /* 2. Show the modal and the CV content specifically */
-              .fixed.inset-0.z-\\[101\\], 
-              .fixed.inset-0.z-\\[101\\] > *,
-              #cv-content,
-              #cv-content * {
-                display: flex !important;
-                visibility: visible !important;
+              
+              /* 2. Reset containers to ensure the A4 is the root of the print */
+              .fixed.inset-0.z-\\[101\\],
+              .fixed.inset-0.z-\\[101\\] > div {
+                position: static !important;
+                display: block !important;
+                width: auto !important;
+                height: auto !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                overflow: visible !important;
+                box-shadow: none !important;
+                background: white !important;
               }
-              /* 3. Reset the CV content for perfect A4 output */
+
+              /* 3. Force the A4 paper to be the only thing on the page */
               #cv-content {
                 position: absolute !important;
                 left: 0 !important;
                 top: 0 !important;
                 width: 210mm !important;
                 height: 297mm !important;
-                margin: 0 !important;
-                padding: 20mm !important;
                 transform: none !important;
+                margin: 0 !important;
                 box-shadow: none !important;
                 border: none !important;
+                visibility: visible !important;
+                display: flex !important;
                 background: white !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
               }
-              /* 4. Hide UI elements like the toolbar during print */
-              .no-print {
+
+              /* 4. Ensure nested text is visible */
+              #cv-content * {
+                visibility: visible !important;
+              }
+
+              /* 5. Hide UI toolbars */
+              .no-print,
+              .bg-zinc-900.flex.justify-between.items-center {
                 display: none !important;
               }
-              /* 5. General page settings */
+
               @page {
                 size: A4;
                 margin: 0;
-              }
-              body {
-                background: white !important;
-                margin: 0 !important;
-                height: auto !important;
               }
             }
             .custom-scrollbar::-webkit-scrollbar { width: 8px; }
