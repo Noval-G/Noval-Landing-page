@@ -1,66 +1,89 @@
 # Noval - Digital Portfolio
 
-> **Game Designer & Multimedia Artist**  
-> *"Crafting Digital Worlds, Blending Art with Technology."*
+> **Ieong Hoi Long Noval**  
+> *Game design, multimedia art, video production, and creative technical coordination.*
 
-Welcome to the source code of my personal portfolio website. This project showcases my journey in game design, interactive media, and digital art, built with a modern web stack focusing on performance and aesthetics.
+This repository contains the source code for Noval's personal portfolio website. The current build is a bilingual, single-page presentation site that turns CV content and selected work into an interactive web experience.
 
 🌐 **Live Demo:** [https://noval-g.github.io/Noval-Landing-page/](https://noval-g.github.io/Noval-Landing-page/)
 
 ---
 
-## 🎨 About The Project
+## About The Project
 
-This portfolio is designed with a **"Cozy Minimalist & Apple-esque"** philosophy. It moves away from the traditional, cold corporate look, aiming instead for a warm, fluid, and premium user experience.
+The site follows a **"Cozy Minimalist & Apple-esque"** direction, but the implementation is grounded in the current shipped experience rather than an abstract design concept. It emphasizes clarity, motion, and a premium presentation of cross-disciplinary work in game design, media production, and IT support.
 
-### Key Features
-*   **Bento Grid Gallery**: An interactive, expandable gallery for showcasing projects without page reloads.
-*   **Apple-style Motion**: Smooth, spring-physics based animations powered by Framer Motion.
-*   **Interactive Hero**: A subtle, mouse-following glow effect that adds a touch of digital magic.
-*   **Responsive Design**: Perfectly optimized for both desktop and mobile devices.
-
----
-
-## 🛠️ Tech Stack
-
-*   **Framework**: [Next.js 15 (App Router)](https://nextjs.org/)
-*   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-*   **Animation**: [Framer Motion](https://www.framer.com/motion/)
-*   **Icons**: [Lucide React](https://lucide.dev/)
-*   **Deployment**: GitHub Pages (Static Export)
+### Current Features
+- **Bilingual interface**: English and Traditional Chinese content can be toggled in the navbar.
+- **Dual visual modes**: `studio` and `sanctuary` theme modes are available and persisted in `localStorage`.
+- **Interactive hero section**: animated type treatment with a mouse-reactive parallax grid background.
+- **Expandable project collection**: collection cards open into a modal with images, embedded video preview, and external project links.
+- **In-browser CV preview**: a dedicated CV modal supports quick viewing and printing or saving to PDF.
+- **Responsive single-page layout**: sections are arranged for both desktop and mobile usage, with further QA still recommended for future revisions.
 
 ---
 
-## 🚀 Getting Started
+## Tech Stack
 
-If you want to run this project locally on your machine:
-
-1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/Noval-G/Noval-Landing-page.git
-    cd Noval-Landing-page/portfolio
-    ```
-
-2.  **Install dependencies**
-    ```bash
-    npm install
-    ```
-
-3.  **Run the development server**
-    ```bash
-    npm run dev
-    ```
-
-4.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Framework**: [Next.js 16 (App Router)](https://nextjs.org/)
+- **Runtime**: [React 19](https://react.dev/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Animation**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Build Mode**: static export with GitHub Pages-compatible `basePath` and `assetPrefix`
+- **Compiler**: React Compiler enabled in `next.config.ts`
 
 ---
 
-## 📬 Contact
+## Project Structure
 
-I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+- `portfolio/`: Next.js application source
+- `portfolio/src/app`: app router entry, layout, and global styles
+- `portfolio/src/components`: page sections and modal components
+- `portfolio/src/context`: language toggle and content dictionary
+- repository root: reference assets and planning documents
 
-*   **Email**: [sofreeai@gmail.com](mailto:sofreeai@gmail.com)
-*   **Phone**: +853 63939694 / +852 44136069
+---
+
+## Getting Started
+
+To run the site locally:
+
+1. Clone the repository.
+   ```bash
+   git clone https://github.com/Noval-G/Noval-Landing-page.git
+   cd Noval-Landing-page/portfolio
+   ```
+2. Install dependencies.
+   ```bash
+   npm install
+   ```
+3. Start the development server.
+   ```bash
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000).
+
+To create the production build:
+
+```bash
+npm run build
+```
+
+---
+
+## Content Notes
+
+- Portfolio text is primarily maintained in `src/context/LanguageContext.tsx`.
+- The collection currently includes game, design, and video entries.
+- The video collection card still uses a placeholder thumbnail image and should be replaced when final artwork is ready.
+
+---
+
+## Contact
+
+- **Email**: [sofreeai@gmail.com](mailto:sofreeai@gmail.com)
+- **Phone**: +853 63939694
 
 ---
 

@@ -12,11 +12,12 @@ type Item = {
   title: string;
   category: string;
   description: string;
-  size: 'small' | 'medium' | 'large'; // small: 1x1, medium: 2x1, large: 2x2
-  imageUrl: string; // Placeholder image URL
-  content?: string; // Placeholder for detailed content
+  size: 'small' | 'medium' | 'large';
+  imageUrl: string;
+  content?: string;
   link?: string;
   videoEmbedUrl?: string;
+  displayLabel?: string;
 };
 
 export default function Collection() {
@@ -32,6 +33,12 @@ export default function Collection() {
     setIsPlaying(false);
   };
 
+  const gridSpanClass = {
+    large: 'md:col-span-4 md:row-span-1',
+    medium: 'md:col-span-2 md:row-span-1',
+    small: 'md:col-span-1 md:row-span-1',
+  } as const;
+
   const items: Item[] = [
     {
       id: '1',
@@ -43,6 +50,7 @@ export default function Collection() {
       content: t('collection.item.game.content'),
       videoEmbedUrl: 'https://www.youtube.com/embed/cGez3Bq_BcI?si=_0YXgkP-RPerzAQy&autoplay=1',
       link: 'https://drive.google.com/drive/folders/1C6GjvJG5mlJQdzIvr-uwt25X-t6RMJAn?usp=sharing',
+      displayLabel: 'GAME DESIGN',
     },
     {
       id: '3',
@@ -53,6 +61,7 @@ export default function Collection() {
       imageUrl: `${basePath}/NovalLogo.png`,
       content: t('collection.item.design.content'),
       link: 'https://drive.google.com/drive/folders/1Wk17g126-y7cLMWnVSiVn7nmTgHMDqak?usp=sharing',
+      displayLabel: 'DESIGN',
     },
     {
       id: '5',
@@ -63,6 +72,16 @@ export default function Collection() {
       imageUrl: 'https://placehold.co/1200x400/dc2626/white?text=Video',
       content: t('collection.item.video.content'),
       link: 'https://drive.google.com/drive/folders/1YQmfHgKgnowriEh3iKXD4TwJYp3CdIiD?usp=sharing',
+    },
+    {
+      id: '7',
+      title: t('collection.item.code.title'),
+      category: t('collection.item.code.category'),
+      description: t('collection.item.code.desc'),
+      size: 'small',
+      imageUrl: 'https://placehold.co/800x800/111827/E5E7EB?text=AI+Werewolf',
+      content: t('collection.item.code.content'),
+      displayLabel: 'PROGRAMMING',
     },
   ];
 
@@ -99,11 +118,7 @@ export default function Collection() {
                 show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
               }}
               onClick={() => setSelectedId(item.id)}
-              className={`relative cursor-pointer group rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 ${
-                item.id === '1' ? 'md:col-span-4 md:row-span-1' :
-                item.id === '5' ? 'md:col-span-3 md:row-span-1' :
-                'md:col-span-1 md:row-span-1'
-              }`}
+              className={`relative cursor-pointer group rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 ${gridSpanClass[item.size]}`}
             >
               {/* Background Image */}
               <div className="absolute inset-0">
@@ -111,23 +126,16 @@ export default function Collection() {
                   src={item.imageUrl} 
                   alt={item.title}
                   fill
-                  className={`object-cover transition-all duration-700 group-hover:scale-105 ${(item.id === '1' || item.id === '3') ? 'blur-[2px] brightness-75' : ''}`}
+                  className={`object-cover transition-all duration-700 group-hover:scale-105 ${item.displayLabel ? 'blur-[2px] brightness-75' : ''}`}
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
               </div>
 
-              {/* Special Overlay for Hero Items */}
-              {item.id === '1' && (
+              {/* Fixed Display Labels */}
+              {item.displayLabel && (
                 <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
                   <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter opacity-100 group-hover:scale-110 transition-transform duration-700 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] drop-shadow-[0_0_15px_rgba(0,0,0,0.3)]">
-                    GAME DESIGN
-                  </h2>
-                </div>
-              )}
-              {item.id === '3' && (
-                <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                  <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter opacity-100 group-hover:scale-110 transition-transform duration-700 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] drop-shadow-[0_0_15px_rgba(0,0,0,0.3)]">
-                    DESIGN
+                    {item.displayLabel}
                   </h2>
                 </div>
               )}
@@ -235,14 +243,20 @@ export default function Collection() {
                                 </div>
                                 
                                 <div className="pt-8 border-t border-border">
-                                   <a 
-                                     href={item.link || "#"} 
-                                     target={item.link ? "_blank" : "_self"}
-                                     rel="noopener noreferrer"
-                                     className="w-full py-4 bg-foreground text-background rounded-2xl font-bold hover:opacity-90 transition-opacity active:scale-[0.98] inline-flex items-center justify-center"
-                                   >
-                                     {t('collection.viewLive')}
-                                   </a>
+                                   {item.link ? (
+                                     <a 
+                                       href={item.link}
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       className="w-full py-4 bg-foreground text-background rounded-2xl font-bold hover:opacity-90 transition-opacity active:scale-[0.98] inline-flex items-center justify-center"
+                                     >
+                                       {t('collection.viewLive')}
+                                     </a>
+                                   ) : (
+                                     <div className="w-full py-4 bg-foreground/5 text-muted rounded-2xl font-semibold inline-flex items-center justify-center text-center px-6">
+                                       {t('collection.detailsOnRequest')}
+                                     </div>
+                                   )}
                                 </div>
                               </div>
                             </div>
