@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Printer, Mail, Phone, Award, Briefcase, GraduationCap, Zap, Code, Camera, Layout } from 'lucide-react';
+import { X, Printer, Mail, Phone, Award, Briefcase, GraduationCap, Zap, Code, Layout } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface CVModalProps {
@@ -11,6 +11,32 @@ interface CVModalProps {
 
 export default function CVModal({ isOpen, onClose }: CVModalProps) {
   const { t, language } = useLanguage();
+
+  const expertiseItems = language === 'zh'
+    ? [
+        'UE5（C++ / 藍圖）',
+        'Unity（C#）',
+        'Python',
+        'AI 互動設計',
+        '遊戲 QA',
+        '影像製作',
+        '技術統籌',
+      ]
+    : [
+        'UE5 (C++ / BP)',
+        'Unity (C#)',
+        'Python',
+        'AI Interaction Design',
+        'Game QA',
+        'Video Production',
+        'Technical Coordination',
+      ];
+
+  const languageItems = [
+    { name: t('about.lang.cantonese'), level: t('about.lang.native') },
+    { name: t('about.lang.mandarin'), level: t('about.lang.native') },
+    { name: t('about.lang.english'), level: t('about.lang.fluent') },
+  ];
 
   const handlePrint = () => {
     const content = document.getElementById('cv-content');
@@ -106,11 +132,6 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
     doc.close();
   };
 
-  const expertiseItems = [
-    'UE5 (C++/BP)', 'Unity (C#)', 'Adobe PR / PS', 
-    'Shooting', 'AI Prompt', 'Game QA', 'Hardware'
-  ];
-
   return (
     <AnimatePresence>
       {isOpen && (
@@ -170,7 +191,7 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
                       <div className="flex justify-center items-center gap-4 text-accent font-bold mb-8">
                         <span className="text-2xl">NOVAL</span>
                         <div className="w-1.5 h-1.5 bg-zinc-300 rounded-full" />
-                        <span className="text-sm uppercase tracking-[0.3em] text-gray-400 font-black">{t('hero.badge')}</span>
+                        <span className="text-sm uppercase tracking-[0.3em] text-gray-400 font-black">{t('resume.role')}</span>
                       </div>
                       <div className="flex justify-center gap-10 text-[12px] font-black text-gray-600">
                         <span className="flex items-center gap-2"><Mail size={14} className="text-accent" /> sofreeai@gmail.com</span>
@@ -185,8 +206,8 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
                              <Zap size={14} /> {language === 'zh' ? '個人簡介' : 'Profile Summary'}
                           </h3>
                           <div className="bg-zinc-50 p-5 rounded-2xl border-l-2 border-accent/20">
-                            <p className="text-[12px] leading-[1.7] text-gray-700 font-medium italic">
-                              "{t('about.desc')}"
+                            <p className="text-[12px] leading-[1.7] text-gray-700 font-medium">
+                              {t('resume.summary')}
                             </p>
                           </div>
                         </section>
@@ -199,10 +220,10 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
                              <div className="absolute -left-[31px] top-0 w-3 h-3 bg-white border-2 border-accent rounded-full shadow-sm" />
                              <div className="flex justify-between items-start mb-1">
                                <h4 className="text-lg font-black text-gray-900 leading-tight">{t('timeline.work.mlsa')}</h4>
-                               <span className="text-[9px] font-black text-gray-400">2025 — 2026</span>
+                               <span className="text-[9px] font-black text-gray-400">{t('resume.experience.period')}</span>
                              </div>
                              <p className="text-[11px] font-bold text-accent uppercase tracking-widest mb-3">{t('timeline.work.assistant')}</p>
-                             <p className="text-[11px] leading-[1.7] text-gray-500 font-medium">{t('timeline.work.mlsa.desc')}</p>
+                             <p className="text-[11px] leading-[1.7] text-gray-500 font-medium">{t('resume.experience.desc')}</p>
                           </div>
                         </section>
 
@@ -213,13 +234,13 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
                           <div className="space-y-5">
                              <div className="pl-6 border-l-2 border-zinc-100 relative">
                                 <div className="absolute -left-[7px] top-1.5 w-1.5 h-1.5 bg-gray-200 rounded-full" />
-                                <h4 className="text-[13px] font-black text-gray-900 mb-1.5 uppercase tracking-tight">XenoVersus | UE5 Solo Project</h4>
-                                <p className="text-[11px] leading-[1.7] text-gray-500 font-medium italic">{language === 'zh' ? '獨自使用 Unreal Engine 5 開發，整合 C++ 與藍圖系統，展現技術研發實力。' : 'Solo-developed UE5 project integrating C++ and Blueprints, showing technical R&D skills.'}</p>
+                                <h4 className="text-[13px] font-black text-gray-900 mb-1.5 uppercase tracking-tight">{t('resume.project.lineorlie.title')}</h4>
+                                <p className="text-[11px] leading-[1.7] text-gray-500 font-medium italic">{t('resume.project.lineorlie.desc')}</p>
                              </div>
                              <div className="pl-6 border-l-2 border-zinc-100 relative">
                                 <div className="absolute -left-[7px] top-1.5 w-1.5 h-1.5 bg-gray-200 rounded-full" />
-                                <h4 className="text-[13px] font-black text-gray-900 mb-1.5 uppercase tracking-tight">Cinematic Video Portfolio</h4>
-                                <p className="text-[11px] leading-[1.7] text-gray-500 font-medium italic">{language === 'zh' ? '主導多項高視覺衝擊力影片製作，致力於感動人心的視覺呈現。' : 'Leading high-impact video productions focused on evocative visual experiences.'}</p>
+                                <h4 className="text-[13px] font-black text-gray-900 mb-1.5 uppercase tracking-tight">{t('resume.project.xeno.title')}</h4>
+                                <p className="text-[11px] leading-[1.7] text-gray-500 font-medium italic">{t('resume.project.xeno.desc')}</p>
                              </div>
                           </div>
                         </section>
@@ -234,6 +255,7 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
                            <p className="text-[9px] font-black text-accent tracking-widest uppercase">2020 — 2024</p>
                            <h4 className="text-[13px] font-black text-gray-900 leading-tight">{t('timeline.edu.uni')}</h4>
                            <p className="text-[11px] font-bold text-gray-500">{t('timeline.edu.major')}</p>
+                           <p className="text-[10px] leading-[1.6] text-gray-500 font-medium">{t('resume.education.note')}</p>
                         </div>
                       </section>
 
@@ -267,10 +289,10 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
                       <section>
                         <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300 mb-5">{language === 'zh' ? '語言能力' : 'Languages'}</h3>
                         <div className="space-y-2.5">
-                           {[{ name: 'Cantonese', lv: 'Native' }, { name: 'Mandarin', lv: 'Native' }, { name: 'English', lv: 'Fluent' }].map((lang) => (
+                           {languageItems.map((lang) => (
                              <div key={lang.name} className="flex justify-between items-center text-[11px] font-bold">
                                <span className="text-gray-700">{lang.name}</span>
-                               <span className="text-accent text-[9px] uppercase">{lang.lv}</span>
+                               <span className="text-accent text-[9px] uppercase">{lang.level}</span>
                              </div>
                            ))}
                         </div>
