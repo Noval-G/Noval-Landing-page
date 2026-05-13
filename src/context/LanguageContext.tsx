@@ -123,7 +123,7 @@ const translations: Record<Language, Record<string, string>> = {
     'timeline.award.perf': 'Performance Art',
     'timeline.award.macao.desc': 'Champion in Theatre Sports, highlighting improvisation and teamwork abilities.',
     // Contact
-    'contact.title': 'Looking for work where reliable systems quietly support meaningful stories',
+    'contact.title': 'Technology alone is not enough.',
     'resume.role': 'Technical Integration • Creative Systems',
     'resume.summary': 'Cross-disciplinary technical generalist with hands-on experience in livestream setup, OBS control, hardware troubleshooting, system bug resolution, computer repair, video production, and full-stack interactive project development. My strength lies in keeping hardware, software, and execution aligned, especially in environments where calm problem-solving and fast adaptation directly affect delivery quality.',
     'resume.experience.period': '2025.01 — 2026.03',
@@ -252,7 +252,7 @@ const translations: Record<Language, Record<string, string>> = {
     'timeline.award.perf': '表演藝術',
     'timeline.award.macao.desc': '在劇場運動比賽中奪冠，展現即興表演與團隊合作能力。',
     // Contact
-    'contact.title': '期待投入那些讓技術安靜地支撐內容，也讓內容真正打動人的工作',
+    'contact.title': '單靠科技本身，並不足夠。',
     'resume.role': '技術整合・創意系統',
     'resume.summary': '我是一位跨域的技術整合型工作者，具備直播系統架設、OBS 中控、硬體排錯、系統 bug 處理、電腦維修、影像製作，以及互動專案全端開發經驗。比起單一工具本身，我更在意的是如何讓硬體、軟體與現場流程彼此咬合，讓事情在高壓之下依然穩定、清晰而可靠，並最終轉化成可被信任的執行成果。',
     'resume.experience.period': '2025.01 — 2026.03',
