@@ -14,22 +14,22 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
 
   const expertiseItems = language === 'zh'
     ? [
+        'OBS / 直播中控',
+        '硬體排錯',
+        '系統除錯',
+        'React + Vite',
+        'Node.js + Express',
+        'Socket.IO',
         'UE5（C++ / 藍圖）',
-        'Unity（C#）',
-        'Python',
-        'AI 互動設計',
-        '遊戲 QA',
-        '影像製作',
-        '技術統籌',
       ]
     : [
+        'OBS / Live Control',
+        'Hardware Troubleshooting',
+        'System Debugging',
+        'React + Vite',
+        'Node.js + Express',
+        'Socket.IO',
         'UE5 (C++ / BP)',
-        'Unity (C#)',
-        'Python',
-        'AI Interaction Design',
-        'Game QA',
-        'Video Production',
-        'Technical Coordination',
       ];
 
   const languageItems = [
